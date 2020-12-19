@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>details</title>
+</head>
+<body>
+<h4>LoggedUser: <span th:text="${name}"></span></h4>
+<h4>details: <span th:text="${details}"></span></h4>
+<h4>Time: <span th:text="${timeNow}"></span></h4>
+  Please fill the date:</h2>
+
+<form th:action="@{/sendCalculate}" th:object="${newWorkingDay}"  method="post">
+
+  <p>Date: <label for="date"> </label>
+    <input type="date" th:field="*{date}" id="date" required></p>
+  <p>Start time: <label for="startTime"></label>
+    <input type="time" th:field="*{startTime}" id="startTime" required></p>
+  <p>Finish time: <label for="finishTime"></label>
+    <input type="time" th:field="*{finishTime}" id="finishTime" required></p>
+  <p>Deduction: <label for="deduction time"> </label>
+    <input type="number" id="deduction time" th:field="*{deductionTime}" required> minutes</p>
+  <p><input type="submit" th:value="calculate"></p>
+</form>
+</body>
+</html>

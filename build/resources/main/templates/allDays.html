@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table">
+
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Start</th>
+        <th>Finish</th>
+        <th>Deduction</th>
+        <th>Total Time</th>
+        <th>before tax</th>
+        <th>after tax</th>
+        <th></th>
+    </tr>
+    <tr th:each="day :${allDaysList}">
+        <td th:text="${day.id}"></td>
+        <td th:text="${day.date}"></td>
+        <td th:text="${day.startTime}"></td>
+        <td th:text="${day.finishTime}"></td>
+        <td th:text="${day.deductionTime}"></td>
+        <td th:text="${day.totalPayableTime}"></td>
+        <td th:text="${day.beforeTaxIncome}"></td>
+        <td th:text="${day.afterTaxIncome}"></td>
+        <td class="text-center"></td>
+    </tr>
+</table>
+<section>
+    <form th:action="@{/editWorkday (workday.id)}" th:object="${workday}" method="get">
+        <input type="number" th:field="${workday.id}" required>
+        <input type="submit" th:value="Edit">
+    </form>
+</section>
+<section>
+    <form th:action="@{/deleteWorkday (workday.id)}" th:object="${workday}" method="post">
+        <input type="number" th:field="${workday.id}" required>
+        <input type="submit" th:value="Delete">
+    </form>
+</section>
+</body>
+</html>

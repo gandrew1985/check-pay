@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chosen Day</title>
+</head>
+<body>
+
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>Start </th>
+        <th>Finish</th>
+        <th>Deduction</th>
+        <th>Total Time</th>
+        <th>before tax</th>
+        <th>after tax</th>
+        <th>     </th>
+    </tr>
+    <tr th:each="day : ${workdayByDate}">
+        <td th:text="${workdayByDate.date}"></td>
+        <td th:text="${workdayByDate.startTime}"></td>
+        <td th:text="${workdayByDate.finishTime}"></td>
+        <td th:text="${workdayByDate.deductionTime}"></td>
+        <td th:text="${workdayByDate.totalPayableTime}"></td>
+        <td th:text="${workdayByDate.beforeTaxIncome}"></td>
+        <td th:text="${workdayByDate.afterTaxIncome}"></td>
+        <td class="text-right">
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome In Payroll</title>
+</head>
+<h4>Welcome: <span th:text="${userLogged}"></span> </h4>
+<h2>Please choose your next step</h2>
+<h4>If you are first time using that app we recommend you to start with filling up your Rates </h4>
+<body>
+<form th:action="@{/getRate}" method="get">
+    <input type="submit" th:value="Rate">
+</form><br>
+<form th:action="@{/getForm}" method="get">
+    <input type="submit" th:value="AddWorkDay">
+</form><br>
+<form th:action="@{/chooseDate}" th:object="${chosenDay}" method="get">
+    <input type="date" th:field="*{date}" required>
+    <input type="submit" th:value="Select">
+</form><br>
+
+<a th:href="@{/showAllDays}">All Days</a>
+
+</body>
+</html>

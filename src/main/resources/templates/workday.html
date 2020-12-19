@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${header}"> </title>
+</head>
+<body>
+<h1 th:text="${header}"></h1>
+<h4>LoggedUser: <span th:text="${name}"></span></h4>
+<h4>details: <span th:text="${details}"></span></h4>
+<h4>Time: <span th:text="${timeNow}"></span></h4>
+<h2>Chosen date<span th:date="${workday.date}"></span> doesnt exist.<br>
+Please fill the date:</h2>
+
+<form th:action="${action}" th:object="${workday}"  method="post">
+
+    <p>Date: <label for="date"> </label>
+        <input type="date" th:field="*{date}" id="date" required></p>
+    <p>Start time: <label for="startTime"></label>
+        <input type="time" th:field="*{startTime}" id="startTime" required></p>
+    <p>Finish time: <label for="finishTime"></label>
+        <input type="time" th:field="*{finishTime}" id="finishTime" required></p>
+    <p>Deduction: <label for="deduction time"> </label>
+        <input type="number" id="deduction time" th:field="*{deductionTime}" required> minutes</p>
+    <input type="hidden" th:field="*{id}" />
+    <p><input type="submit" th:value="calculate"></p>
+</form>
+</body>
+</html>
