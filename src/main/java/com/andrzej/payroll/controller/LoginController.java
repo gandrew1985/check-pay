@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -37,30 +36,30 @@ public class LoginController {
         model.addAttribute("userLogged",principal.getName());
         model.addAttribute("chosenDay", new Workday());
         model.addAttribute("list", workdaysList);
-        return "home";
+        return "index";
     }
 
     @GetMapping("/postLogin")
     public String logIn(@ModelAttribute("appUser") AppUserDto appUserDto, Model model) {
         model.addAttribute("newAppUser", new AppUserDto());
-        return "home";
+        return "index";
     }
 
     @GetMapping("/loginPage")
-    public String get(Model model) {
+    public String showLoginPage(Model model) {
         model.addAttribute("newAppUser", new AppUserDto());
         return "signup";
     }
 
     @GetMapping("/getRegister")
-    public String register(Model model) {
+    public String showRegister(Model model) {
         model.addAttribute("newRegAppUser", new AppUserDto());
         model.addAttribute("role", "ROLE_USER");
         return "register";
     }
 
     @PostMapping("/postRegUser")
-    public String register(@ModelAttribute AppUserDto appUserDto) {
+    public String sendRegister(@ModelAttribute AppUserDto appUserDto) {
         userDbService.addUser(userMapper.mapToAppUser(appUserDto));
         System.out.println(userMapper.mapToAppUser(appUserDto));
         return "redirect:/loginPage";

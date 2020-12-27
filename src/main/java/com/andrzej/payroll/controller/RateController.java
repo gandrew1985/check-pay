@@ -1,21 +1,17 @@
 package com.andrzej.payroll.controller;
 
 import com.andrzej.payroll.domain.AppUser;
-import com.andrzej.payroll.domain.AppUserDto;
-import com.andrzej.payroll.domain.Rate;
 import com.andrzej.payroll.domain.RateDto;
 import com.andrzej.payroll.mapper.ServiceMapper;
 import com.andrzej.payroll.repository.RateRepository;
 import com.andrzej.payroll.service.TimeService;
 import com.andrzej.payroll.service.UserDbService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class RateController {
@@ -59,7 +55,7 @@ public class RateController {
     @GetMapping("/deleteRate/{id}")
     public String deleteRate(@PathVariable Long id) {
         rateRepository.deleteById(id);
-        return "home";
+        return "index";
     }
 
     @GetMapping("/showRate")

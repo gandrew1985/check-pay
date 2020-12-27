@@ -12,7 +12,7 @@
 <h2>Chosen date<span th:date="${workday.date}"></span> doesnt exist.<br>
 Please fill the date:</h2>
 
-<form th:action="${action}" th:object="${workday}"  method="post">
+<form th:action="@{/saveWorkday}" th:object="${workday}"  method="post">
 
     <p>Date: <label for="date"> </label>
         <input type="date" th:field="*{date}" id="date" required></p>
