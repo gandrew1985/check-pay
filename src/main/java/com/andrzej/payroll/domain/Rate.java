@@ -11,6 +11,11 @@ import javax.persistence.*;
 @Entity(name = "rates")
 public class Rate {
 
+    /*
+     * REVIEW
+     * 1. Nie wiem czy jest sens użwać @Column w jezeli nazwa jest taka sama jak w tabeli. Nic to nie wnosi a bez tego bedzie działać.
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

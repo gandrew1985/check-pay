@@ -12,6 +12,11 @@ import java.util.Optional;
 @Repository
 public interface WorkdayRepository extends JpaRepository<Workday, Long> {
 
+    /*
+     * REVIEW
+     * 1. Takich metod jak findById(Long id) nie musisz pisać bo one juz są i same sie generują.
+     */
+
     Workday findByDateAndAppUser(LocalDate date, AppUser appUser);
 
     boolean existsByDateAndAppUser(LocalDate date, AppUser appUser);

@@ -9,8 +9,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController("/users")
 public class AppAdminController {
+
+    /*
+     * REVIEW
+     * 1. Użyj Lomboka zeby usunąć jawny konstruktor -> szczegóły w komentarzu w UserDbService
+     * 2. Masz w tej klasie wymieszaną warstwe Controllera z Repository. Wywoływania metod z Repository powinny sie znaleść w jakimś Servisie jako klasie pośredniej.
+     * 3. Niepoprawnie nazywasz urle. Zamiast '/createUser' powinno być '/users'. To że jest to POST wskazuje już że to słuzy to tworzenia usera. To samo '/editUser' -> '/users'.
+     * Jak poprawisz wsyztskie metody to okaże się że wszystkie metody mają część wspolną '/users' i to bedziesz mógł przenieść do adnotacji @RequestMapping("/users") nad klasą.
+     */
 
     private UserMapper userMapper;
     private AppUserRepository appUserRepository;

@@ -18,6 +18,12 @@ import java.util.Collections;
 @Entity(name = "USERS")
 public class AppUser implements UserDetails {
 
+    /*
+     * REVIEW
+     * 1. Po co masz jawne gettery w tej klasie skoro masz adnotacje @GETTER?
+     * 2. toString taki jaki zaproponowałes też da sie wygenerowac lombokiem
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

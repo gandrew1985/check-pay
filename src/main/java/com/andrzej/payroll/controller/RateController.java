@@ -16,6 +16,11 @@ import java.security.Principal;
 @Controller
 public class RateController {
 
+    /*
+     * REVIEW
+     * Nigdy nie wstrzykuj przez fieldy :)
+     */
+
     @Autowired
     private RateRepository rateRepository;
     @Autowired

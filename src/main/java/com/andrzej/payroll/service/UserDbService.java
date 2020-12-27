@@ -19,6 +19,13 @@ import java.util.List;
 @Transactional
 public class UserDbService {
 
+/*
+* REVIEW
+* Trwialny konstruktor w tej klasie może być zastąpiony Lombokiem którego i tak już używasz.
+* jak dodasz nad nazwą klasy adnotacje @RequiredArgsConstructor, poniższe pola oznaczasz final (Jak używasz Intelij to powininen Ci to podkreślać)
+* to wtedy możesz usunąć konstruktor. Dla czytelności zrobiłbym tak w każdej klasie i mocno Ci to polecam bo sobie oszczędzasz czas.
+*/
+
     private AppUserRepository appUserRepository;
     private WebSecurityConfig securityConfig;
     private WorkdayRepository workdayRepository;
