@@ -48,7 +48,5 @@ com/andrzej/payroll/domain/RateDto.java
  com.andrzej.payroll.domain.RateDto$RateDtoBuilder
 com/andrzej/payroll/controller/LoginController.java
  com.andrzej.payroll.controller.LoginController
-com/andrzej/payroll/controller/HomeController.java
- com.andrzej.payroll.controller.HomeController
 com/andrzej/payroll/controller/WorkdayController.java
  com.andrzej.payroll.controller.WorkdayController

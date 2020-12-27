@@ -53,8 +53,6 @@ public class WorkdayController {
         model.addAttribute("name", principal.getName());
         model.addAttribute("details", details);
         model.addAttribute("workday", new Workday());
-        model.addAttribute("action", "/sendCalculate");
-        model.addAttribute("header", "Add workday");
         model.addAttribute("timeNow", timeNow);
         return "workday";
     }
@@ -91,7 +89,6 @@ public class WorkdayController {
     public String editWorkday(Model model,@PathVariable("id") Long id) {
         Workday dbDay = userDbService.findWorkdayById(id);
         model.addAttribute("workday",dbDay);
-        System.out.println("view" + dbDay);
         return "editWorkday";
     }
 
