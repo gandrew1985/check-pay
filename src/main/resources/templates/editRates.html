@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Rate Details</title>
@@ -7,7 +7,10 @@
 <h4>User: <span th:text="${name}"></span></h4>
 <body>
 <section>
-<form th:action="@{/sendRate}" th:object="${rates}" method="post">
+<form th:action="@{/rates/updateRates/{id} (id=${rateDto.id})}"
+      th:object="${rateDto}"
+      method="post">
+
     <p>Hourly rate: <label for="hourly"></label>
         <input type="number" id="hourly" th:field="*{hourlyRate}">£</p>
     <p>Overtime rate: <label for="overtime"></label>
@@ -21,16 +24,9 @@
     <input name="submit" type="submit" th:value="Save">
 </form>
 </section>
+
 <section>
-<form th:action="@{/updateRate}" th:object="${newRates}">
-    <p><input type="button" th:value="Update"></p>
-</form>
-<form action="#" th:action="@{/deleteRate/${rateId}}" method="get">
-    <p><button type="submit" class="btn" >Delete</button></p>
-</form>
-</section>
-<section>
-<a th:href="@{/showRate}">Show Rate</a>
+<a th:href="@{/rates/getRates}">Show Rate</a>
 </section>
 </body>
 </html>

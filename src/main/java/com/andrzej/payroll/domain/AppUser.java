@@ -13,10 +13,16 @@ import java.util.Collections;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@Data
+@Builder
 @Entity(name = "USERS")
 public class AppUser implements UserDetails {
+
+    /* @Column uzywam po to zeby zastosowac Constraints y do poszczegolnych kolumn...
+     * probowalem importowac javax.validation.constraints, dodalem zaleznosc do gradle.build
+     * ale nie dzialalo(moze dlatego ze dodalem najnowsza wersje z maven repository?)
+     * dlaczego nie moge w spring.init ustawic wyzszej Javy niz 8? wyskakuje ze SDK tylko dziala z 8...??
+     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,28 +38,9 @@ public class AppUser implements UserDetails {
     @OneToOne(mappedBy = "appUser")
     private Rate rate;
 
-
-    public AppUser(Long id, String username, String password, String email, String role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(role));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override
@@ -74,18 +61,5 @@ public class AppUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "AppUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                '}';
     }
 }

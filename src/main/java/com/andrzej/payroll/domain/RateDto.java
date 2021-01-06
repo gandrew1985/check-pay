@@ -2,9 +2,9 @@ package com.andrzej.payroll.domain;
 
 import lombok.*;
 
-@Getter
-@Setter
 @Builder
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class RateDto {
 
@@ -16,6 +16,4 @@ public class RateDto {
     private double pensionScheme;
     private AppUser appUser;
 
-    public RateDto() {
-    }
 }

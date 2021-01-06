@@ -3,14 +3,15 @@ package com.andrzej.payroll.controller;
 import com.andrzej.payroll.domain.AppUserDto;
 import com.andrzej.payroll.domain.Workday;
 import com.andrzej.payroll.mapper.UserMapper;
-import com.andrzej.payroll.service.UserDbService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.andrzej.payroll.service.DbService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -18,16 +19,12 @@ import java.util.List;
 
 @Controller
 @EnableWebSecurity
+@RequiredArgsConstructor
+@RequestMapping("/")
 public class LoginController {
 
-    private UserDbService userDbService;
-    private UserMapper userMapper;
-
-    @Autowired
-    public LoginController(UserDbService userDbService, UserMapper userMapper) {
-        this.userDbService = userDbService;
-        this.userMapper = userMapper;
-    }
+    private final DbService dbService;
+    private final UserMapper userMapper;
 
     @GetMapping("/home")
     public String getHome(Model model, Principal principal) {
@@ -39,29 +36,28 @@ public class LoginController {
         return "index";
     }
 
-    @GetMapping("/postLogin")
+    @PostMapping
     public String logIn(@ModelAttribute("appUser") AppUserDto appUserDto, Model model) {
         model.addAttribute("newAppUser", new AppUserDto());
         return "index";
     }
 
-    @GetMapping("/loginPage")
+    @GetMapping
     public String showLoginPage(Model model) {
         model.addAttribute("newAppUser", new AppUserDto());
         return "signup";
     }
 
-    @GetMapping("/getRegister")
+    @GetMapping("/register")
     public String showRegister(Model model) {
         model.addAttribute("newRegAppUser", new AppUserDto());
         model.addAttribute("role", "ROLE_USER");
         return "register";
     }
 
-    @PostMapping("/postRegUser")
+    @PostMapping("/register")
     public String sendRegister(@ModelAttribute AppUserDto appUserDto) {
-        userDbService.addUser(userMapper.mapToAppUser(appUserDto));
-        System.out.println(userMapper.mapToAppUser(appUserDto));
-        return "redirect:/loginPage";
+        dbService.addUser(userMapper.mapToAppUser(appUserDto));
+        return "redirect:/";
     }
 }

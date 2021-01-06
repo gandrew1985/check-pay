@@ -18,6 +18,4 @@ public interface WorkdayRepository extends JpaRepository<Workday, Long> {
 
     List<Workday> findAllByAppUser(AppUser appUser);
 
-    Optional<Workday> findById(Long id);
-
 }

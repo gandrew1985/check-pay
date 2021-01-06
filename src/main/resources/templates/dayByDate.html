@@ -29,8 +29,8 @@
         <td th:text="${workdayByDate.totalPayableTime}"></td>
         <td th:text="${workdayByDate.beforeTaxIncome}"></td>
         <td th:text="${workdayByDate.afterTaxIncome}"></td>
-        <td><a th:href="@{/editWorkday/{id}(id=${workdayByDate.id})}">Edit</a></td>
-        <td><a th:href="@{/deleteWorkday/{id}(id=${workdayByDate.id})}">Delete</a></td>
+        <td><a th:href="@{/workdays/editWorkday/{id}(id=${workdayByDate.id})}">Edit</a></td>
+        <td><a th:href="@{/workdays/deleteWorkday/{id}(id=${workdayByDate.id})}">Delete</a></td>
         <td class="text-right">
         </td>
     </tr>

@@ -2,13 +2,19 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Workdays</title>
 </head>
 <body>
+<section>
+    <form th:action="@{/workdays/addWorkday}" method="get">
+        <input type="submit" th:value="AddWorkDay">
+    </form>
+</section>
+<br>
+
 <table class="table">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Date</th>
         <th>Start</th>
         <th>Finish</th>
@@ -21,8 +27,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="day : ${allDaysList}">
-        <td th:text="${day.id}"></td>
+    <tr th:each="day : ${allDaysListDto}">
         <td th:text="${day.date}"></td>
         <td th:text="${day.startTime}"></td>
         <td th:text="${day.finishTime}"></td>
@@ -30,17 +35,11 @@
         <td th:text="${day.totalPayableTime}"></td>
         <td th:text="${day.beforeTaxIncome}"></td>
         <td th:text="${day.afterTaxIncome}"></td>
-        <td><a th:href="@{/editWorkday/{id}(id=${day.id})}">Edit</a></td>
-        <td><a th:href="@{/deleteWorkday/{id}(id=${day.id})}">Delete</a></td>
+        <td><a th:href="@{/workdays/editWorkday/{id}(id=${day.id})}">Edit</a></td>
+        <td><a th:href="@{/workdays/deleteWorkday/{id}(id=${day.id})}">Delete</a></td>
         <td class="text-center"></td>
     </tr>
     </tbody>
-</table><br>
-<section>
-    <form th:action="@{/addWorkday}" method="get">
-        <input type="submit" th:value="AddWorkDay">
-    </form>
-
-</section>
+</table>
 </body>
 </html>

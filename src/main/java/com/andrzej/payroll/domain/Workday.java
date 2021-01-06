@@ -9,9 +9,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Getter
+@Data
 @Builder
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "workdays")
@@ -34,24 +33,4 @@ public class Workday {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser appUser;
-
-    @OneToOne
-    @JoinColumn(name = "rate_id", referencedColumnName = "id")
-    public Rate rate;
-
-    @Override
-    public String toString() {
-        return "Workday{" +
-                "id=" + id +
-                ", date=" + date +
-                ", startTime=" + startTime +
-                ", finishTime=" + finishTime +
-                ", deductionTime=" + deductionTime +
-                ", totalPayableTime=" + totalPayableTime +
-                ", beforeTaxIncome=" + beforeTaxIncome +
-                ", afterTaxIncome=" + afterTaxIncome +
-                ", appUser=" + appUser +
-                ", rate=" + rate +
-                '}';
-    }
 }

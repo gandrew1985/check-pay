@@ -11,8 +11,8 @@
   Please fill the date:</h2>
 
 <form action="#"
-      th:action="@{/updateWorkday/{id} (id=${workday.id})}"
-      th:object="${workday}"
+      th:action="@{/workdays/updateWorkday/{id} (id=${workdayDto.id})}"
+      th:object="${workdayDto}"
       method="post">
 
   <p>Date: <label for="date"> </label>

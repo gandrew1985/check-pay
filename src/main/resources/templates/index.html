@@ -8,18 +8,19 @@
 <h2>Please choose your next step</h2>
 <h4>If you are first time using that app we recommend you to start with filling up your Rates </h4>
 <body>
-<form th:action="@{/getRate}" method="get">
+<form th:action="@{/rates/getRates}" method="get">
     <input type="submit" th:value="Rate">
 </form><br>
 <form th:action="@{/getForm}" method="get">
     <input type="submit" th:value="AddWorkDay">
 </form><br>
-<form th:action="@{/chooseDate}" th:object="${chosenDay}" method="get">
+<form th:action="@{/workdays/getWorkday}" th:object="${chosenDay}" method="get">
     <input type="date" th:field="*{date}" required>
     <input type="submit" th:value="Select">
 </form><br>
 
-<a th:href="@{/showAllDays}">All Days</a>
+<a th:href="@{/workdays/getWorkdays}">All Days</a>
+<a th:href="@{/rates/getRates}">All Rates</a>
 
 </body>
 </html>

@@ -1,50 +1,55 @@
 package com.andrzej.payroll.controller;
 
 import com.andrzej.payroll.domain.AppUserDto;
-import com.andrzej.payroll.exception.NotFoundException;
 import com.andrzej.payroll.mapper.UserMapper;
-import com.andrzej.payroll.repository.AppUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.andrzej.payroll.service.DbService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/users")
 public class AppAdminController {
 
-    private UserMapper userMapper;
-    private AppUserRepository appUserRepository;
+    /* co do nazewnictwa URL to mam troche metlik...
+     * bo zeby korzystac z thymeleafa to nazwy URL nie moga sie powtarzac ...
+     * wiec za bardzo nie moge wszystkich metod nazwac tak samo i polegac tylko na rodzaju Mappingu
+     * a na dodatek thymleaf obsluguje tylko 2 zadania Get i Post...
+     * wiec za bardzo nie wiem jak to obejsc....
+     * do tego kontrollera tez bede tworzyl front z wykorzystaniem thymeleafa...
+     * na bootcampie bylo ze nad klase daje sie np @RequestMapping("/api")
+     * a nad metodami to co robia np ("/createUser") ... itp.
+     * poprawilem nazwy URL w KOntrollerach ale dalej nie wiem czy dobrze....
+     */
 
-    @Autowired
-    public AppAdminController(UserMapper userMapper, AppUserRepository appUserRepository) {
-        this.userMapper = userMapper;
-        this.appUserRepository = appUserRepository;
-    }
+    private final UserMapper userMapper;
+    private final DbService dbService;
 
     @PostMapping("/createUser")
     public void createUser(@RequestBody AppUserDto appUserDto) {
-        appUserRepository.save(userMapper.mapToAppUser(appUserDto));
+        dbService.addUser(userMapper.mapToAppUser(appUserDto));
     }
 
-    @PutMapping("/editUser")
+    @PutMapping("/updateUser/{id}")
     public AppUserDto editUser(@RequestBody AppUserDto appUserDto) {
-        return userMapper.mapToAppUserDto(appUserRepository.save(userMapper.mapToAppUser(appUserDto)));
+        return userMapper.mapToAppUserDto(dbService.editUser(userMapper.mapToAppUser(appUserDto)));
     }
 
     @GetMapping("/getUser/{id}")
-    public AppUserDto getUser(@PathVariable Long id) throws NotFoundException {
-        return userMapper.mapToAppUserDto(appUserRepository.findById(id).orElseThrow(() ->
-                new NotFoundException("User does not exist")));
+    public AppUserDto getUser(@PathVariable Long id) {
+        return userMapper.mapToAppUserDto(dbService.findById(id));
     }
 
-    @GetMapping("/getAllUsers")
-    public List<AppUserDto> getAll() {
-
-        return userMapper.mapToAppUserDtoList(appUserRepository.findAll());
+    @GetMapping("/getUsers")
+    public List<AppUserDto> getAllUsers() {
+        return userMapper.mapToAppUserDtoList(dbService.findAllUsers());
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public void delete(@PathVariable Long id) {
-        appUserRepository.deleteById(id);
+    public void deleteUser(@PathVariable Long id) {
+        dbService.deleteUser(id);
     }
 }

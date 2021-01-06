@@ -1,6 +1,7 @@
 package com.andrzej.payroll.configuration;
 
 import com.andrzej.payroll.service.AppUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,13 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AppUserDetailsService appUserDetailsService;
-
-    public WebSecurityConfig(final AppUserDetailsService appUserDetailsService) {
-        this.appUserDetailsService = appUserDetailsService;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/loginPage")
+                .formLogin().loginPage("/")
                 //.usernameParameter("username").passwordParameter("password")
                 .defaultSuccessUrl("/home")
                 .and()

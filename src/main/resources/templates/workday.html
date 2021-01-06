@@ -9,10 +9,9 @@
 <h4>LoggedUser: <span th:text="${name}"></span></h4>
 <h4>details: <span th:text="${details}"></span></h4>
 <h4>Time: <span th:text="${timeNow}"></span></h4>
-<h2>Chosen date<span th:date="${workday.date}"></span> doesnt exist.<br>
-Please fill the date:</h2>
+<h2>Please fill the date:</h2>
 
-<form th:action="@{/saveWorkday}" th:object="${workday}"  method="post">
+<form th:action="@{/workdays/createWorkday}" th:object="${workdayDto}"  method="post">
 
     <p>Date: <label for="date"> </label>
         <input type="date" th:field="*{date}" id="date" required></p>

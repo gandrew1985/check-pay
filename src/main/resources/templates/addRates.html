@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate Details</title>
+</head>
+<h4>User: <span th:text="${name}"></span></h4>
+<body>
+<section>
+    <form th:action="@{/rates/createRates}" th:object="${rateDto}" method="post">
+        <p>Hourly rate: <label for="hourly"></label>
+            <input type="number" id="hourly" th:field="*{hourlyRate}">£</p>
+        <p>Overtime rate: <label for="overtime"></label>
+            <input type="number" id="overtime" th:field="*{overtimeRate}">£</p>
+        <p>Night rate: <label for="night"></label>
+            <input type="number" id="night" th:field="*{nightRate}">£</p>
+        <p>Location rate: <label for="location"></label>
+            <input type="number" id="location" th:field="*{locationRate}">£</p>
+        <p>Pension scheme:<label for="pension"></label>
+            <input type="number" id="pension" th:field="*{pensionScheme}">%</p>
+        <input name="submit" type="submit" th:value="Save">
+    </form>
+</section>
+
+<section>
+    <a th:href="@{/rates/getRates}">Back To Rates</a>
+</section>
+</body>
+</html>

@@ -4,10 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "rates")
 public class Rate {
 
@@ -25,14 +25,8 @@ public class Rate {
     @Column(nullable = false)
     private double pensionScheme;
 
-    @OneToOne(mappedBy = "rate")
-    private Workday workday;
-
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser appUser;
-
-    public Rate() {
-    }
 }
 
