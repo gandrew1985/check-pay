@@ -12,13 +12,13 @@
       method="post">
 
     <p>Hourly rate: <label for="hourly"></label>
-        <input type="number" id="hourly" th:field="*{hourlyRate}">£</p>
+        <input type="number" id="hourly" th:field="*{hourlyRate}" step=".01">£</p>
     <p>Overtime rate: <label for="overtime"></label>
-        <input type="number" id="overtime" th:field="*{overtimeRate}">£</p>
+        <input type="number" id="overtime" th:field="*{overtimeRate}" step=".01">£</p>
     <p>Night rate: <label for="night"></label>
-        <input type="number" id="night" th:field="*{nightRate}">£</p>
+        <input type="number" id="night" th:field="*{nightRate}" step=".01">£</p>
     <p>Location rate: <label for="location"></label>
-        <input type="number" id="location" th:field="*{locationRate}">£</p>
+        <input type="number" id="location" th:field="*{locationRate}" step=".01">£</p>
     <p>Pension scheme:<label for="pension"></label>
         <input type="number" id="pension" th:field="*{pensionScheme}">%</p>
     <input name="submit" type="submit" th:value="Save">

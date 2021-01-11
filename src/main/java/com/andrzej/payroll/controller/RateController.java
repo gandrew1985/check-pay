@@ -4,7 +4,7 @@ import com.andrzej.payroll.domain.AppUser;
 import com.andrzej.payroll.domain.RateDto;
 import com.andrzej.payroll.mapper.ServiceMapper;
 import com.andrzej.payroll.service.DbService;
-import com.andrzej.payroll.service.TimeService;
+import com.andrzej.payroll.service.WorkdayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +19,12 @@ import java.util.List;
 public class RateController {
 
     private final ServiceMapper serviceMapper;
-    private final TimeService timeService;
+    private final WorkdayService workdayService;
     private final DbService dbService;
 
     @GetMapping("/getRates")
     public String showRates(Model model, Principal principal) {
-        AppUser loggedUser = timeService.getLoggedUser();
+        AppUser loggedUser = workdayService.getLoggedUser();
         List<RateDto> ratesList = serviceMapper.mapToListRateDto(dbService.findAllRatesByAppUser(loggedUser));
         model.addAttribute("rateDto", new RateDto());
         model.addAttribute("ratesList", ratesList);
@@ -40,8 +40,8 @@ public class RateController {
 
     @PostMapping("/createRates")
     public String saveRate(@ModelAttribute RateDto rateDto) {
-        AppUser loggedUser = timeService.getLoggedUser();
-        rateDto.setAppUser(timeService.getLoggedUser());
+        AppUser loggedUser = workdayService.getLoggedUser();
+        rateDto.setAppUser(workdayService.getLoggedUser());
         boolean rates = dbService.existRateForUser(loggedUser);
 
         if (rates) {

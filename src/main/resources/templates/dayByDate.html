@@ -14,6 +14,8 @@
         <th>Finish</th>
         <th>Deduction</th>
         <th>Total Time</th>
+        <th>Night Time</th>
+        <th>Bonus Time</th>
         <th>before tax</th>
         <th>after tax</th>
         <th>     </th>
@@ -27,6 +29,8 @@
         <td th:text="${workdayByDate.finishTime}"></td>
         <td th:text="${workdayByDate.deductionTime}"></td>
         <td th:text="${workdayByDate.totalPayableTime}"></td>
+        <td th:text="${workdayByDate.totalNightHours}"></td>
+        <td th:text="${workdayByDate.totalBonusHours}"></td>
         <td th:text="${workdayByDate.beforeTaxIncome}"></td>
         <td th:text="${workdayByDate.afterTaxIncome}"></td>
         <td><a th:href="@{/workdays/editWorkday/{id}(id=${workdayByDate.id})}">Edit</a></td>

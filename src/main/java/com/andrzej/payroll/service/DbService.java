@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -28,7 +27,7 @@ public class DbService {
     private final AppUserRepository appUserRepository;
     private final WebSecurityConfig securityConfig;
     private final WorkdayRepository workdayRepository;
-    private final TimeService timeService;
+    private final WorkdayService workdayService;
     private final RateRepository rateRepository;
 
     public void addUser(AppUser appUser) {
@@ -80,6 +79,19 @@ public class DbService {
         return workdayRepository.existsByDateAndAppUser(date, appUser);
     }
 
+    @Transactional
+    public Workday updateWorkday(Workday workday) {
+        Workday editedWorkday = workdayRepository.findById(workday.getId())
+                .orElseThrow(()-> new NotFoundException("Workday does not exist"));
+        editedWorkday.setStartTime(workday.getStartTime());
+        editedWorkday.setFinishTime(workday.getFinishTime());
+        editedWorkday.setDeductionTime(workday.getDeductionTime());
+        editedWorkday.setTotalPayableTime(workday.getTotalPayableTime());
+        editedWorkday.setBeforeTaxIncome(workday.getBeforeTaxIncome());
+        editedWorkday.setAfterTaxIncome(workday.getAfterTaxIncome());
+        return editedWorkday;
+    }
+
     public void deleteWorkday(Long id) {
         workdayRepository.deleteById(id);
     }
@@ -97,12 +109,12 @@ public class DbService {
     }
 
     public Rate findRateByUser(AppUser appUser) {
-        appUser = timeService.getLoggedUser();
+        appUser = workdayService.getLoggedUser();
         return rateRepository.findByAppUser(appUser);
     }
 
     public List<Rate> findAllRatesByAppUser(AppUser appUser) {
-        appUser = timeService.getLoggedUser();
+        appUser = workdayService.getLoggedUser();
         return rateRepository.findAllByAppUser(appUser);
     }
 
