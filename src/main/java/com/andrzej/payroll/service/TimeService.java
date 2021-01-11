@@ -11,6 +11,11 @@ import java.time.LocalTime;
 @Service
 public class TimeService {
 
+    /* MAREK
+    * Ta klasa ma sporo różnych metod które nijak nie mają sie do siebie nawzajem ani do nazwy samej klasy
+    * Powienieneś to porodzielać na kilka innych klas.
+     */
+
     public Duration calculateTimeDiffDuration(LocalTime startTime, LocalTime finishTime, long deduction) {
         Duration resultDuration;
 

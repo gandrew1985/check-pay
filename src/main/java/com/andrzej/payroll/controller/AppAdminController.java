@@ -25,6 +25,17 @@ public class AppAdminController {
      * poprawilem nazwy URL w KOntrollerach ale dalej nie wiem czy dobrze....
      */
 
+    /* MAREK
+    * Niewiele robiłem w thymleafie wiec nie jestem najlepszą osobą do podpowiadania.
+    * Z drugiej storny jednak API to API i każda strona o dobrych praktykach pisania REST API mówi w
+    * zasadzie to samo (mn.in że metody createUser są niewłaściwe) https://phauer.com/2015/restful-api-design-best-practices/
+    *
+    * Jeżeli faktycznie sie nie mogą powtażać w thymsleafie (upewniłbym sie) to ten przykład jak nazywać urle wygląda
+    * całkiem przyzwoicie: https://www.dariawan.com/tutorials/spring/spring-boot-thymeleaf-crud-example/
+    * jest praktyka dość powszechna że dodaje sie '/api' i robi sie to po to żeby właśnie wyodrębnić nasze RESTy jako te oficjalne
+    * i odróżnić je od tych wygenerowanych (np springowe).
+    */
+
     private final UserMapper userMapper;
     private final DbService dbService;
 

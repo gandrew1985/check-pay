@@ -25,6 +25,23 @@ public class DbService {
      * czy lepiej nad klasa?
      */
 
+    /* MAREK
+    * To czy klasa jest długa może (ale nie musi oznaczać) klasa robi za wiele
+    * Podstawowa zasada (patrz praktyki SOLID) jest taka że klasa nie powinna mieć wiecej niz jednego powodu do zmiany.
+    * Zrozumienie co to własciwie oznacza przychodzi z doświadczeniem ale na przykładzie tej klasy mozna wywnioskować
+    * że robisz tu operacje na Userze, WorkDay i Rate a to mogą być przyczyny do zmian. Jak bedziesz kiedyś coś zmieniał
+    * w operacjach na WorkDay to bedziesz robił to w tej samej klasie gdzie znajdują sie operacje na Userze. Poniżej tego nie widać
+    * ale jakby poniższe metody miały wspolne metody prywatne, to jakaś zmiana w działaniu na WorkDay mogłaby nieoczekiwanie
+    * wpływać na operacje Userów i odwrotnie.
+    * @Transactional nad klasą oznacza @Transactional nad każdą metodą publiczną, nie wiem czy to poprawnie ale ja zawsze umieszczam go nad klasą.
+    * Tranzakcje nie są aż tak istnotne w SpringBoocie bo spring.jpa.open-in-view jest w nim właczony z defaultu a to oznacza
+    * ze cześc rzeczy nie wymagają dedykowanej tranzakcji bo cały request jest jedną wielką tranzakcją. Jak ustawisz spring.jpa.open-in-view=false
+    * w propertisach to np metoda addUser poniej rzuci Ci wyjatkiem bo nie bedzie mieć zadnej aktywnej tranzakcji
+    * Obecnie tranzakcyjnośc sprowadza sie głównie do tego że jak coś sie wywali w czasie zapisywania to powinno to wszystkie
+    * operacje na bazie powinny sie cofnąć. Oraz nie musisz robic save na każdym objeckie który updatujesz tylko dzieje sie to automatycznie.
+    * Czyniąc historie krótką dawałbym @Transactional nad każdą klasą która jest servicem.
+     */
+
     private final AppUserRepository appUserRepository;
     private final WebSecurityConfig securityConfig;
     private final WorkdayRepository workdayRepository;

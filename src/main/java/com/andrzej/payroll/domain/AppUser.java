@@ -24,6 +24,13 @@ public class AppUser implements UserDetails {
      * dlaczego nie moge w spring.init ustawic wyzszej Javy niz 8? wyskakuje ze SDK tylko dziala z 8...??
      */
 
+    /* Niepowinineneś validować danych przed wrzuceniem ich do bazy
+    * powinieneś je wyryfikowąć jeszcze na poziomie DTO i to na nich powieneies założyć constrainy.
+    * Zasada jest taka że wyłapuje sie niepoprawności jak najwcześniej.
+    * Nie wiem czemu nie mozesz ustawić wyższej Javy nie widze powodu żeby nie miało działać i wersja Javy nie raczej
+    * nie ma tu znaczneia. Spróbuj ustawić wersje Javy w gradlu.
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

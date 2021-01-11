@@ -17,6 +17,11 @@ public class AppUserDto {
         model.addAttribute("workdayDto", new WorkdayDto());
         return "allDays";
      */
+    /* MAREK
+    * OK.
+    * Tak czy naczej staraj sie utrzymywać jak najmnijesza ilość konstruktorów. Jezeli jest ich dużo -> wzorzec Builder albo przemyśl logike.
+    * Dąż do tego żeby każda klasa mogła by tworzona tylko jedynm kostruktorem choć wiem ze niektórymi frameworkami jest o to cięzko wiec to sie nie zawsze uda.
+     */
 
     private Long id;
     private String username;
