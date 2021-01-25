@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${add} ? 'Create workday' : 'Edit workday'"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h4>LoggedUser: <span th:text="${name}"></span></h4>
+<h4>details: <span th:text="${details}"></span></h4>
+<!--<h4>Time: <span th:text="${timeNow}"></span></h4>-->
+
+
+<form th:action="${add} ? @{/workdays/add} : @{/workdays/{workdayId}/edit(workdayId=${workdayDto.id})}"
+      th:object="${workdayDto}"
+      method="post">
+    <table border="0">
+   <!--     <tr th:if="${workdayDto.date}">
+            <td>Date</td>
+            <td>:</td>
+            <td th:utext="${workdayDto.date}">...</td>
+        </tr>-->
+        <tr >
+            <td>Date</td>
+            <td>:</td>
+            <td> <input type="date" th:field="*{date}"></td>
+        </tr>
+        <tr>
+            <td>Start Time</td>
+            <td>:</td>
+            <td><input type="time" th:field="*{startTime}"></td>
+        </tr>
+        <tr>
+            <td>Finish Time</td>
+            <td>:</td>
+            <td><input type="time" th:field="*{finishTime}"></td>
+        </tr>
+        <tr>
+            <td>Deduction Time</td>
+            <td>:</td>
+            <td><input type="number" th:field="*{deductionTime}"></td>
+        </tr>
+    </table>
+    <p><input type="submit" th:value="${add} ? 'Create' : 'Update'"></p>
+</form>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${add} ? 'Create rates' : 'Edit rates'"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<h4>User: <span th:text="${name}"></span></h4>
+<body>
+<h1 th:text="${add} ? 'Create rates: ' : 'Edit rates: '"></h1>
+<a th:href="@{/rates}">Back to Rates List</a>
+<section>
+<form th:action="${add} ? @{/rates/add} : @{/rates/{rateId}/edit(rateId=${rateDto.id})} "
+      th:object="${rateDto}"
+      method="post">
+    <table border="0">
+        <tr>
+            <td>Hourly Rate</td>
+            <td>:</td>
+            <td><input type="number" th:field="*{hourlyRate}" step=".01"></td>
+        </tr>
+        <tr>
+            <td>Overtime Rate</td>
+            <td>:</td>
+            <td><input type="number" th:field="*{overtimeRate}" step=".01"></td>
+        </tr>
+        <tr>
+            <td>Night Rate</td>
+            <td>:</td>
+            <td><input type="number" th:field="*{nightRate}" step=".01"></td>
+        </tr>
+        <tr>
+            <td>Location Rate</td>
+            <td>:</td>
+            <td><input type="number" th:field="*{locationRate}" step=".01"></td>
+        </tr>
+        <tr>
+            <td>Allowance</td>
+            <td>:</td>
+            <td><input type="number" th:field="*{allowance}" step=".01"></td>
+        </tr>
+        <tr>
+            <td>Pension Scheme</td>
+            <td>:</td>
+            <td><input type="number" th:field="*{pensionScheme}"></td>
+        </tr>
+    </table>
+    <input  type="submit" th:value="${add} ? 'Create' : 'Update'">
+</form>
+</section>
+</body>
+</html>

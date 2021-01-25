@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rates List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Rates List</h1>
+<section>
+    <a th:href="@{/rates/add}">Add Rates</a> |
+    <a th:href="@{/home}">Back to Home</a><br>
+</section>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Hourly Rate</th>
+        <th>Overtime Rate</th>
+        <th>Night Rate</th>
+        <th>Location Rate</th>
+        <th>Allowance</th>
+        <th>Pension Scheme</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rate: ${ratesList}">
+        <td th:text="${rate.hourlyRate}"></td>
+        <td th:text="${rate.overtimeRate}"></td>
+        <td th:text="${rate.nightRate}"></td>
+        <td th:text="${rate.locationRate}"></td>
+        <td th:text="${rate.allowance}"></td>
+        <td th:text="${rate.pensionScheme}"></td>
+        <td><a th:href="@{/rates/{rateId}/edit(rateId=${rate.id})}">Edit</a></td>
+        <td><a th:href="@{/rates/{rateId}/delete(rateId=${rate.id})}">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

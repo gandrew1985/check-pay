@@ -2,25 +2,24 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome In Payroll</title>
+    <title>Payslip Checker</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <div >
+        <a th:href="@{/logout}">Logout</a>
+    </div>
 </head>
 <h4>Welcome: <span th:text="${userLogged}"></span> </h4>
-<h2>Please choose your next step</h2>
-<h4>If you are first time using that app we recommend you to start with filling up your Rates </h4>
 <body>
-<form th:action="@{/rates/getRates}" method="get">
-    <input type="submit" th:value="Rate">
-</form><br>
-<form th:action="@{/getForm}" method="get">
-    <input type="submit" th:value="AddWorkDay">
-</form><br>
-<form th:action="@{/workdays/getWorkday}" th:object="${chosenDay}" method="get">
+<h1>PAYSLIP CHECKER</h1>
+
+<!--<form th:action="@{/workdays/{workdayDate}(${workdayDto.getDate()})}" th:object="${workdayDto}" method="get">
     <input type="date" th:field="*{date}" required>
     <input type="submit" th:value="Select">
-</form><br>
+</form><br>-->
 
-<a th:href="@{/workdays/getWorkdays}">All Days</a>
-<a th:href="@{/rates/getRates}">All Rates</a>
+<a th:href="@{/workdays}">All Days</a>
+<a th:href="@{/rates}">All Rates</a>
+<a th:href="@{/weeks/addGet}">weeksAdd</a>
 
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Workdays</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Workdays List</h1><br>
+<a th:href="@{/workdays/add}">Add Workday</a> |
+<a th:href="@{/home}">Back to Home</a><br>
+<br>
+<div>
+<table class="table" border="1">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Week</th>
+        <th>Start</th>
+        <th>Finish</th>
+        <th>Deduction</th>
+        <th>Total Time</th>
+        <th>Night Time</th>
+        <th>Bonus Time</th>
+        <th>Before Tax</th>
+        <th>After Tax</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="day : ${allDaysListDto}">
+        <td th:text="${day.date}"></td>
+        <td th:text="${day.weekNumber}"></td>
+        <td th:text="${day.startTime}"></td>
+        <td th:text="${day.finishTime}"></td>
+        <td th:text="${day.deductionTime}"></td>
+        <td th:text="${day.totalPayableTime}"></td>
+        <td th:text="${day.totalNightHours}"></td>
+        <td th:text="${day.totalBonusHours}"></td>
+        <td th:text="${day.beforeTaxIncome}"></td>
+        <td th:text="${day.afterTaxIncome}"></td>
+        <td><a th:href="@{/workdays/{workdayId}/edit (workdayId=${day.id})}">Edit</a></td>
+        <td><a th:href="@{/workdays/{workdayId}/delete (workdayId=${day.id})}">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+    <br>
+</div>
+<div>
+    <span th:if="${hasPrev}"><a th:href="@{/workdays?page={previous}(previous=${previous})}">Prev</a> &nbsp|</span>
+    <span th:if="${hasNext}"><a th:href="@{/workdays?page={next}(next=${next})}">Next</a></span>
+    </nobr>
+</div>
+</body>
+</html>
+</div>
+</body>
+</html>
