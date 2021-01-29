@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Week Summary</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
 </head>
 <body>
+<a th:href="@{/home}">Back to Home</a><br>
+<h1>Week # <span th:text="${weekNumber}"></span> </h1>
+<table class="table" border="1">
+    <thead>
+    <tr>
+        <th>Week Number</th>
+        <th>Basic Hours </th>
+        <th>Night Hours</th>
+        <th>Bonus Hours</th>
+        <th>Location Hours</th>
+        <th>Basic Income</th>
+        <th>Night Income</th>
+        <th>Bonus Income</th>
+        <th>Location Income</th>
+        <th>Meal Allowance</th>
+        <th>Total Income</th>
+        <th>Take Home Income</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${weekDtoByNumber.weekNumber}" ></td>
+        <td th:text="${weekDtoByNumber.totalBasicHours}" ></td>
+        <td th:text="${weekDtoByNumber.totalNightHours}" ></td>
+        <td th:text="${weekDtoByNumber.totalBonusHours}"></td>
+        <td th:text="${weekDtoByNumber.totalLocationHours}"></td>
+        <td th:text="${weekDtoByNumber.basicHoursIncome}" ></td>
+        <td th:text="${weekDtoByNumber.nightHoursIncome}" ></td>
+        <td th:text="${weekDtoByNumber.bonusHoursIncome}"></td>
+        <td th:text="${weekDtoByNumber.locationHoursIncome}"></td>
+        <td th:text="${weekDtoByNumber.totalMealAllowance}"></td>
+        <td th:text="${weekDtoByNumber.totalIncome}"></td>
+        <td th:text="${weekDtoByNumber.afterTaxIncome}"></td>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

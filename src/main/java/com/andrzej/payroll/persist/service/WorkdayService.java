@@ -39,7 +39,8 @@ public class WorkdayService {
     }
 
     public Workday getWorkdayByDateAndUser(LocalDate date, AppUser appUser) {
-        return workdayRepository.findByDateAndAppUser(date, appUser);
+        return workdayRepository.findByDateAndAppUser(date, appUser)
+                .orElseThrow(()->new NotFoundException("Workday does not exist"));
     }
 
     public boolean existWorkdayByDateAndUser(LocalDate date, AppUser appUser) {
@@ -52,6 +53,8 @@ public class WorkdayService {
         editedWorkday.setStartTime(workday.getStartTime());
         editedWorkday.setFinishTime(workday.getFinishTime());
         editedWorkday.setDeductionTime(workday.getDeductionTime());
+        editedWorkday.setTotalBonusHours(workday.getTotalBonusHours());
+        editedWorkday.setTotalNightHours(workday.getTotalNightHours());
         editedWorkday.setTotalPayableTime(workday.getTotalPayableTime());
         editedWorkday.setBeforeTaxIncome(workday.getBeforeTaxIncome());
         editedWorkday.setAfterTaxIncome(workday.getAfterTaxIncome());
@@ -68,5 +71,9 @@ public class WorkdayService {
 
     public Long count() {
         return workdayRepository.count();
+    }
+
+    public List<Workday> getAllWorkdaysByWeekNumber(int weekNumber) {
+        return workdayRepository.findAllByWeekNumber(weekNumber);
     }
 }

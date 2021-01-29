@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+
+    <table class="table" >
+        <thead>
+        <tr>
+            <th></th>
+        </tr>
+        </thead>
+    <tr th:each="week : ${weekDtoList}">
+    <td><a th:href="@{/weeks/{weekNr}/(weekNr=${week.weekNumber})}"
+           th:text="${weekStr} + ${week.weekNumber}"></a></td>
+    </tr>
+</table>
+
+
+<form th:action="@{/weeks/{weekNumber} (weekNumber = ${weekDto.getWeekNumber()})}" th:object="${weekDto}" method="get">
+    <input type="number" th:field="*{weekNumber}" required>
+    <input type="submit" th:value="Select">
+</form><br>
 
 </body>
 </html>

@@ -6,17 +6,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@Data
 @Builder
 @Entity(name = "USERS")
-public class AppUser implements UserDetails {
+public class AppUser implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,7 @@ public class AppUser implements UserDetails {
     @OneToOne(mappedBy = "appUser")
     private Rate rate;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "appUser")
     private List<Workday> workdayList;
 
@@ -55,14 +56,5 @@ public class AppUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "AppUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }

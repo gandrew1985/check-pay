@@ -11,6 +11,12 @@ import java.util.Set;
 @Data
 public class BankHoliday {
 
+    //nie wiem czy tak moge zrobic, czy nie powinienem umiescic ich w bazie danych??
+    //jesli tak, to jak to najlepiej zrobic?
+    //stworzyc tabele bezposrednio  w mySql u z pominieciem Springa?
+    //choc wtedy jak bedzie apka isntalowana na innym kompie to nie bedzie tych swiat....:P
+    //czy jak stawiamy apke np w chmurze, to rowniez baza danych jest w chmurze, i apka z niej korzysta?
+
     private final Set<LocalDate> bankHolidaysSet = new HashSet<>();
 
     private BankHoliday() {

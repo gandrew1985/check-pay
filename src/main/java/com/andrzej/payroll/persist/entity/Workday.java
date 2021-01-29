@@ -9,8 +9,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,21 +40,4 @@ public class Workday {
     @ManyToOne
     @JoinColumn(name = "week_id")
     private Week week;
-
-    @Override
-    public String toString() {
-        return "Workday{" +
-                "id=" + id +
-                ", date=" + date +
-                ", weekNumber=" + weekNumber +
-                ", startTime=" + startTime +
-                ", finishTime=" + finishTime +
-                ", deductionTime=" + deductionTime +
-                ", totalPayableTime=" + totalPayableTime +
-                ", totalNightHours=" + totalNightHours +
-                ", totalBonusHours=" + totalBonusHours +
-                ", beforeTaxIncome=" + beforeTaxIncome +
-                ", afterTaxIncome=" + afterTaxIncome +
-                '}';
-    }
 }

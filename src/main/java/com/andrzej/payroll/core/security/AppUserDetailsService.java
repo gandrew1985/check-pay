@@ -26,6 +26,4 @@ public class AppUserDetailsService implements UserDetailsService {
         return appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException("User does not exist"));
     }
-
-
 }

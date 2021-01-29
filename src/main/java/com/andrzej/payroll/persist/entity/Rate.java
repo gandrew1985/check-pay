@@ -3,14 +3,14 @@ package com.andrzej.payroll.persist.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "rates")
-public class Rate {
+public class Rate implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

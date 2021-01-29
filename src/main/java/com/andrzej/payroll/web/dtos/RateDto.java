@@ -36,5 +36,4 @@ public class RateDto {
     @PositiveOrZero
     private double pensionScheme;
     private AppUser appUser;
-
 }

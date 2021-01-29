@@ -116,6 +116,12 @@ public class ServiceMapper {
                 .totalNightHours(weekDto.getTotalNightHours())
                 .totalLocationHours(weekDto.getTotalLocationHours())
                 .totalBonusHours(weekDto.getTotalBonusHours())
+                .basicHoursIncome(weekDto.getBasicHoursIncome())
+                .nightHoursIncome(weekDto.getNightHoursIncome())
+                .bonusHoursIncome(weekDto.getBonusHoursIncome())
+                .locationHoursIncome(weekDto.getLocationHoursIncome())
+                .totalIncome(weekDto.getTotalIncome())
+                .afterTaxIncome(weekDto.getAfterTaxIncome())
                 .appUser(weekDto.getAppUser())
                 .build();
     }
@@ -132,7 +138,8 @@ public class ServiceMapper {
                         .totalMealAllowance(week.getTotalMealAllowance())
                         .appUser(week.getAppUser())
                         .workdayDtoList(mapToWorkdayDtoList(week.getWorkdayList()))
-                        .build());
+                        .build())
+                .collect(Collectors.toList());
     }
 
     public WeekDto mapToWeekDto(Week week) {
@@ -143,7 +150,15 @@ public class ServiceMapper {
                 .totalNightHours(week.getTotalNightHours())
                 .totalLocationHours(week.getTotalLocationHours())
                 .totalBonusHours(week.getTotalBonusHours())
+                .totalMealAllowance(week.getTotalMealAllowance())
+                .basicHoursIncome(week.getBasicHoursIncome())
+                .bonusHoursIncome(week.getBonusHoursIncome())
+                .nightHoursIncome(week.getNightHoursIncome())
+                .locationHoursIncome(week.getLocationHoursIncome())
+                .totalIncome(week.getTotalIncome())
+                .afterTaxIncome(week.getAfterTaxIncome())
                 .appUser(week.getAppUser())
+                .workdayDtoList(mapToWorkdayDtoList(week.getWorkdayList()))
                 .build();
     }
 }

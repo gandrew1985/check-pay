@@ -40,4 +40,5 @@ public class WorkdayDto {
     private BigDecimal beforeTaxIncome;
     private BigDecimal afterTaxIncome;
     private AppUser appUser;
+    private WeekDto weekDto;
 }

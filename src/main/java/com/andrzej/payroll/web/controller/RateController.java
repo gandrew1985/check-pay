@@ -1,6 +1,5 @@
 package com.andrzej.payroll.web.controller;
 
-import com.andrzej.payroll.core.logic.WorkdayCalculator;
 import com.andrzej.payroll.core.security.AppUserDetailsService;
 import com.andrzej.payroll.persist.entity.AppUser;
 import com.andrzej.payroll.persist.mapper.ServiceMapper;
@@ -23,7 +22,6 @@ import java.util.List;
 public class RateController {
 
     private final ServiceMapper serviceMapper;
-    private final WorkdayCalculator workdayCalculator;
     private final AppUserDetailsService userDetailsService;
     private final RateService rateService;
 
@@ -68,8 +66,8 @@ public class RateController {
     }
 
     @PostMapping("/rates/{rateId}/edit")
-    public String updateRate(Model model,@PathVariable long rateId,
-                             @Valid @ModelAttribute ("rateDto") RateDto rateDto) {
+    public String updateRate(Model model, @PathVariable long rateId,
+                             @Valid @ModelAttribute("rateDto") RateDto rateDto) {
         model.addAttribute("add", false);
         rateDto.setId(rateId);
         serviceMapper.mapToRateDto(rateService.updateRate(serviceMapper.mapToRate(rateDto)));

@@ -1,8 +1,8 @@
 package com.andrzej.payroll.core.logic;
 
 import com.andrzej.payroll.persist.entity.AppUser;
-import com.andrzej.payroll.persist.entity.Rate;
-import com.andrzej.payroll.persist.entity.Workday;
+import com.andrzej.payroll.web.dtos.RateDto;
+import com.andrzej.payroll.web.dtos.WorkdayDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,49 +13,57 @@ import java.time.Duration;
 @Service
 public class WorkdayCalculator {
 
-    private final TimeCalculator timeCalculator;
+    /* Tak samo tutaj nie wiem czy ta klasa jest do konca poprawna
+    * bo te metody troche obszerne mi sie wydaja, ale za bardzo nie mam pomyslu
+    * jak je zwezic....
+     */
 
-    public BigDecimal calculateBeforeTax(Rate rate, Workday workday) {
-        Duration totalWorkTime = timeCalculator.calculateTimeDiffDuration(workday.getStartTime(),
-                workday.getFinishTime());
-        BigDecimal nightBonus = timeCalculator.calculateBonus(rate.getNightRate(),
-                timeCalculator.calculateNightHours(workday.getStartTime(), workday.getFinishTime()).toMinutes());
-        BigDecimal locationBonus = timeCalculator.calculateBonus(rate.getLocationRate(), totalWorkTime.toMinutes());
-        BigDecimal overtimeBonus = timeCalculator.calculateBonus(rate.getOvertimeRate(),
-                timeCalculator.calculateOvertimeHours(workday.getDate(), workday.getStartTime(),
-                        workday.getFinishTime()).toMinutes());
-        BigDecimal basicPay = timeCalculator.calculateBonus(rate.getHourlyRate(),
+    private final WorkdayTimeCalculator workdayTimeCalculator;
+
+    public BigDecimal calculateBeforeTax(RateDto rateDto, WorkdayDto workdayDto) {
+        Duration totalWorkTime = workdayTimeCalculator.calculateTimeDiffDuration(workdayDto.getStartTime(),
+                workdayDto.getFinishTime());
+        BigDecimal nightBonus = workdayTimeCalculator.calculateBonus(rateDto.getNightRate(),
+                workdayTimeCalculator.calculateNightHours(workdayDto.getStartTime(), workdayDto.getFinishTime()).toMinutes());
+        BigDecimal locationBonus = workdayTimeCalculator.calculateBonus(rateDto.getLocationRate(), totalWorkTime.toMinutes());
+        BigDecimal overtimeBonus = workdayTimeCalculator.calculateBonus(rateDto.getOvertimeRate(),
+                workdayTimeCalculator.calculateOvertimeHours(workdayDto.getDate(), workdayDto.getStartTime(),
+                        workdayDto.getFinishTime()).toMinutes());
+        BigDecimal basicPay = workdayTimeCalculator.calculateBonus(rateDto.getHourlyRate(),
                 totalWorkTime.toMinutes());
         return BigDecimal.ZERO.add(nightBonus).add(locationBonus).add(overtimeBonus).add(basicPay)
-                .add(BigDecimal.valueOf(rate.getAllowance()));
+                .add(BigDecimal.valueOf(rateDto.getAllowance()));
     }
 
-    public BigDecimal calculateAfterTax(Rate rate, Workday workday) {
-        BigDecimal beforeTax = calculateBeforeTax(rate, workday);
+    public BigDecimal calculateDeduction(BigDecimal beforeTaxIncome, RateDto rateDto) {
         BigDecimal tax = BigDecimal.valueOf(0.2);
-        BigDecimal taxAmount = beforeTax.multiply(tax);
-        return beforeTax.subtract(taxAmount);
+        BigDecimal taxAmount = beforeTaxIncome.multiply(tax);
+        BigDecimal pensionScheme = BigDecimal.valueOf(rateDto.getPensionScheme() / 100);
+        BigDecimal pensionDeduct = beforeTaxIncome.multiply(pensionScheme);
+        return taxAmount.add(pensionDeduct);
     }
 
-    public Workday calculateWorkday(Workday workday, Rate rate, AppUser loggedUser) {
-        Duration totalWorkTime = timeCalculator.calculateTimeDiffDuration(workday.getStartTime(),
-                workday.getFinishTime());
-        Duration totalNightHours = timeCalculator.calculateNightHours(workday.getStartTime(),
-                workday.getFinishTime());
-        Duration totalBonusHours = timeCalculator.calculateBankHolidayHours(workday.getDate(),
-                workday.getStartTime(), workday.getFinishTime()).plus(timeCalculator.calculateOvertimeHours(
-                workday.getDate(), workday.getStartTime(), workday.getFinishTime()));
-        BigDecimal incomeBeforeTax = calculateBeforeTax(rate, workday);
-        BigDecimal incomeAfterTax = calculateAfterTax(rate, workday);
-        int weekNumber = timeCalculator.getWeekOfYear(workday.getDate());
+    public WorkdayDto calculateWorkday(WorkdayDto workdayDto, RateDto rateDto, AppUser loggedUser) {
+        Duration totalWorkTime = workdayTimeCalculator.calculateTimeDiffDuration(workdayDto.getStartTime(),
+                workdayDto.getFinishTime());
+        Duration totalNightHours = workdayTimeCalculator.calculateNightHours(workdayDto.getStartTime(),
+                workdayDto.getFinishTime());
+        Duration totalBonusHours = workdayTimeCalculator.calculateBankHolidayHours(workdayDto.getDate(),
+                workdayDto.getStartTime(), workdayDto.getFinishTime())
+                .plus(workdayTimeCalculator.calculateOvertimeHours(workdayDto.getDate(),
+                        workdayDto.getStartTime(), workdayDto.getFinishTime()));
+        BigDecimal incomeBeforeTax = calculateBeforeTax(rateDto, workdayDto);
+        BigDecimal deduction = calculateDeduction(incomeBeforeTax, rateDto);
+        BigDecimal incomeAfterTax = incomeBeforeTax.subtract(deduction);
+        int weekNumber = workdayTimeCalculator.getWeekOfYear(workdayDto.getDate());
 
-        workday.setWeekNumber(weekNumber);
-        workday.setTotalPayableTime(totalWorkTime);
-        workday.setTotalNightHours(totalNightHours);
-        workday.setTotalBonusHours(totalBonusHours);
-        workday.setAppUser(loggedUser);
-        workday.setBeforeTaxIncome(incomeBeforeTax);
-        workday.setAfterTaxIncome(incomeAfterTax);
-        return workday;
+        workdayDto.setWeekNumber(weekNumber);
+        workdayDto.setTotalPayableTime(totalWorkTime);
+        workdayDto.setTotalNightHours(totalNightHours);
+        workdayDto.setTotalBonusHours(totalBonusHours);
+        workdayDto.setAppUser(loggedUser);
+        workdayDto.setBeforeTaxIncome(incomeBeforeTax);
+        workdayDto.setAfterTaxIncome(incomeAfterTax);
+        return workdayDto;
     }
 }
