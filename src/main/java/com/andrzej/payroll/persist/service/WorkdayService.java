@@ -37,6 +37,14 @@ public class WorkdayService {
         workdayRepository.findAllByAppUser(appUser, sortByDateAsc).forEach(workdaysList::add);
         return workdaysList;
     }
+        /*REVIEW
+    Powyższę metode można pościej
+
+    public List<Workday> findAllByAppUser(AppUser appUser, int pageNumber, int rowPerPage) {
+        Pageable sortByDateAsc = PageRequest.of(pageNumber - 1, rowPerPage, Sort.by("date").ascending());
+        return workdayRepository.findAllByAppUser(appUser, sortByDateAsc);
+    }
+     */
 
     public Workday getWorkdayByDateAndUser(LocalDate date, AppUser appUser) {
         return workdayRepository.findByDateAndAppUser(date, appUser)
@@ -50,6 +58,12 @@ public class WorkdayService {
     public Workday updateWorkday(Workday workday) {
         Workday editedWorkday = workdayRepository.findById(workday.getId())
                 .orElseThrow(() -> new NotFoundException("Workday does not exist"));
+
+                /*REVIEW
+                Na to poniżej to moze jakaś  metoda prywatna?
+                Lub wykorzystaj builder z Workday.
+                Najlepiej to i to :) to są szczegóły które są niepotrzebne w publicznej metodzie.
+                 */
         editedWorkday.setStartTime(workday.getStartTime());
         editedWorkday.setFinishTime(workday.getFinishTime());
         editedWorkday.setDeductionTime(workday.getDeductionTime());

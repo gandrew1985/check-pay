@@ -9,6 +9,13 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+        /*REVIEW
+        Według mnie ta tabela ma za duzo kolumn.
+        Masz tu dane dotyczące tygodnia, godzin, dochód,
+        Widzę tu trzy tabele ktore mogłby być powiązane jedną UserWeek.
+        Ale to troche rewolucja wiec możesz to potraktowac jako PoC jak bedziesz mieć czas.
+        Podobnie w Workday.
+         */
 @Data
 @Builder
 @NoArgsConstructor

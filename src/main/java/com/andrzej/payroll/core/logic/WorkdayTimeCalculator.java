@@ -12,6 +12,12 @@ import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.Set;
 
+        /*REVIEW
+        Sporo w tej klasie magic numberów. Nawet jeżeli są użyte w kodzie tylko raz
+        powinny byc zdefiniowane w stałych na początku klasy lub pobierane z propertisów za pośrednictwem
+        klas configuration.
+         */
+
 @RequiredArgsConstructor
 @Service
 public class WorkdayTimeCalculator {

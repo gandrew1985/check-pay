@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+        /*REVIEW
+        W tym i innych DTO masz pole AppUser. Nie powinno go tu być bo nie ma związku z resztą klasy.
+        Mozesz go przesyłać jako osobny objekt, lub (sprtniejsze) wyciągać z kontekstu security.
+        https://www.baeldung.com/get-user-in-spring-security
+         */
 
 @Builder
 @Data

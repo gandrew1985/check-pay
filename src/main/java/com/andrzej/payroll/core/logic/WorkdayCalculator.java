@@ -18,6 +18,9 @@ public class WorkdayCalculator {
     * jak je zwezic....
      */
 
+        /*REVIEW
+        Myśle ze jest ok. Mozna by sie pokuścić o rozbicie na metody prywatne ale to kwestia estetyki.
+         */
     private final WorkdayTimeCalculator workdayTimeCalculator;
 
     public BigDecimal calculateBeforeTax(RateDto rateDto, WorkdayDto workdayDto) {
@@ -57,6 +60,9 @@ public class WorkdayCalculator {
         BigDecimal incomeAfterTax = incomeBeforeTax.subtract(deduction);
         int weekNumber = workdayTimeCalculator.getWeekOfYear(workdayDto.getDate());
 
+        /*REVIEW
+        builder z WorkdayDto na to poniżej?
+         */
         workdayDto.setWeekNumber(weekNumber);
         workdayDto.setTotalPayableTime(totalWorkTime);
         workdayDto.setTotalNightHours(totalNightHours);

@@ -19,6 +19,13 @@ public class WeekCalculator {
     // liczy Week....??
     //zrobilem tak bo w controlerze zarowno updateWeek i addWeek korzysta z tej metody....
 
+    /*REVIEW
+    Jest ok.
+    Logika biznesowa nie powinna sie znajdować w Controllerze. Controller to jedynie bramka ze światem zewnętrznym
+    i nie powinnien mieć innych odpowiedzialności. Jedyne d oczego mógłbym sie doczepić do ta metoda mogłby być podzielona
+    na metody prywatne bo obecnie jest za długa. I w publicznej metodzie byś wywoływał te metody.
+    Według mnie klasy i metody powinny być małe bo sie je lepiej czyta ale są różne szkoły.
+     */
     private final WorkdayCalculator workdayCalculator;
 
     public WeekDto calculateWeek(List<WorkdayDto> daysByWeek, RateDto rateDto, int weekNr,

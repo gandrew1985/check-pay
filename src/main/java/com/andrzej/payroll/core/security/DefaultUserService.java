@@ -21,7 +21,9 @@ public class DefaultUserService implements UserService {
         }
         appUserService.addUser(appUser);
     }
-
+ /*REVIEW
+ * to poniżej da sie zapisać prościej appUserService.findUserByEmail(email) != null; :)
+ * */
     @Override
     public boolean checkIfUserExistByEmail(String email) {
         return appUserService.findUserByEmail(email) != null ? true : false;
